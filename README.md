@@ -22,8 +22,6 @@ Good luck and have fun!
 
 Card Images
 
-Latemar
-
 - [Lago di braies] (./images/lago-di-braies.png)
 
 - [Lake Louise] (./images/lake-louise.png)
@@ -35,3 +33,7 @@ Latemar
 - [Yosemite Valley] (./images/yosemite-valley.png)
 
 - [Bald Mountains] (./images/bald-mountains.png)
+
+Link
+
+[Around_the_US] (https://bshea2012.github.io/se_project_aroundtheus/)
