@@ -21,3 +21,14 @@ The way you'll do this at work is by exporting images directly from Figma — we
 Good luck and have fun!
 
 Card Images
+![Lago di braies] (images/lago-di-braies.png)
+
+![Lake Louise] (images/lake-louise.png)
+
+![Latemar] (images/latemar.png)
+
+![Vanoise National Park] (images/vanoise-national-park.png)
+
+![Yosemite Valley] (images/yosemite-valley.png)
+
+![Bald Mountains] (images/bald-mountains.png)
