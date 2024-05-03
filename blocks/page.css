@@ -6,7 +6,6 @@
 
 .page__section {
   max-width: 880px;
-  min-width: 320px;
   width: 100%;
   position: relative;
   margin: 0 auto;
@@ -16,4 +15,11 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 580px) {
+  .page__content {
+    padding: 0;
+  }
 }

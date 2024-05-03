@@ -1,5 +1,16 @@
 .header {
   padding-top: 45px;
   padding-bottom: 41px;
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid rgb(84 84 84 / 0.7);
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 580px) {
+  .header {
+    padding: 28px 0 32px 27px;
+  }
+
+  .header__logo {
+    max-height: 24px;
+  }
 }

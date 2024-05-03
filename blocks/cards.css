@@ -4,54 +4,11 @@
   line-height: 29px;
 }
 
-.card__list {
+.cards__list {
   display: grid;
   padding: 0;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
   grid-gap: 20px 17px;
   margin: 0;
-}
-
-.card {
-  border-radius: 10px;
-  width: 282px;
-  height: 361px;
-  background-color: white;
-  color: black;
-  list-style-type: none;
-}
-
-.card__image {
-  height: 282px;
-}
-
-.card__description {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 25px 20px 25px 30px;
-}
-
-.card__description-content {
-  font-size: 24px;
-  line-height: 29px;
-  font-weight: 900;
-  width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  margin: 0;
-}
-
-.card__like-button {
-  background: transparent url(../images/like-disabled.svg) center no-repeat;
-  width: 21px;
-  height: 18px;
-  border-style: none;
-  transition: background-image 0.5s;
-}
-
-.card__like-button:hover {
-  background-image: url(../images/like-hover.svg);
 }

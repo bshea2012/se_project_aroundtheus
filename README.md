@@ -22,18 +22,22 @@ Good luck and have fun!
 
 Card Images
 
-- [Lago di braies] (./images/lago-di-braies.png)
+- [Lago di braies](./images/lago-di-braies.png)
 
-- [Lake Louise] (./images/lake-louise.png)
+- [Lake Louise](./images/lake-louise.png)
 
-- [Latemar] (./images/latemar.png)
+- [Latemar](./images/latemar.png)
 
-- [Vanoise National Park] (./images/vanoise-national-park.png)
+- [Vanoise National Park](./images/vanoise-national-park.png)
 
-- [Yosemite Valley] (./images/yosemite-valley.png)
+- [Yosemite Valley](./images/yosemite-valley.png)
 
-- [Bald Mountains] (./images/bald-mountains.png)
+- [Bald Mountains](./images/bald-mountains.png)
 
 Link
 
-[Around_the_US] (https://bshea2012.github.io/se_project_aroundtheus/)
+[Around the US](https://bshea2012.github.io/se_project_aroundtheus/)
+
+Video Link
+
+[Cringe Video](https://drive.google.com/file/d/16SAQGDuO_8Elr166aoNHud7fEG3SQydw/view?usp=sharing) :)
