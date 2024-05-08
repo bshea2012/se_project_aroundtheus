@@ -1,5 +1,3 @@
-console.log("Hello");
-
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -27,4 +25,17 @@ const initialCards = [
   },
 ];
 
-console.log(initialCards);
+const profileEditBtn = document.querySelector("#profile-edit-btn");
+const profileEditModal = document.querySelector("#profile-edit-modal");
+
+profileEditBtn.addEventListener("click", () => {
+  profileEditModal.classList.add("modal_opened");
+});
+
+const profileEditModalClose = document.querySelector(
+  "#profile-edit-modal-close"
+);
+
+profileEditModalClose.addEventListener("click", () => {
+  profileEditModal.classList.remove("modal_opened");
+});
