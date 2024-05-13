@@ -79,6 +79,7 @@
   line-height: 22px;
   font-weight: 400;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .modal__button:hover {
