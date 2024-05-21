@@ -31,10 +31,7 @@
               type="button"
               id="profile-edit-btn"
             ></button>
-            <p class="profile__description">
-              Explorer, Videographer, Jumper, Leaper, Hoola-hooper, Explorer,
-              Videographer, Jumper, Leaper, Hoola-hooper
-            </p>
+            <p class="profile__description">Explorer</p>
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
@@ -47,6 +44,7 @@
       </footer>
     </div>
 
+    <!-- Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button
@@ -73,6 +71,37 @@
             required
           />
           <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Add Card Modal -->
+    <div class="modal" id="add-card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="add-card-modal-close"
+          type="button"
+        ></button>
+        <h2 class="modal__heading">New place</h2>
+        <form class="modal__form">
+          <input
+            type="text"
+            name="place__title"
+            class="modal__input"
+            id="place-title-input"
+            placeholder="Title"
+            required
+          />
+          <input
+            type="text"
+            name="place__link"
+            class="modal__input"
+            id="place-link-input"
+            placeholder="Image link"
+            required
+          />
+          <button class="modal__button" type="submit">Create</button>
         </form>
       </div>
     </div>
