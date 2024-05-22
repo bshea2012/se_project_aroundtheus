@@ -18,6 +18,15 @@
   z-index: 1;
 }
 
+.card__image:hover {
+  cursor: pointer;
+}
+
+.card__image-preview {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
 .card__description {
   display: flex;
   align-items: center;
