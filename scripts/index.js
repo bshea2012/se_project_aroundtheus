@@ -63,10 +63,26 @@ const cardImagePreviewTitleEl = previewImageModal.querySelector(
 
 function openPopUp(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalByEscape);
+  modal.addEventListener("mousedown", closeModalOnRemoteClick);
 }
 
 function closePopUp(modal) {
   modal.classList.remove("modal_opened");
+  modal.removeEventListener("mousedown", closeModalOnRemoteClick);
+}
+
+function closeModalByEscape(e) {
+  if (e.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closePopUp(openedModal);
+  }
+}
+
+function closeModalOnRemoteClick(e) {
+  if (e.target === e.currentTarget) {
+    closePopUp(e.currentTarget);
+  }
 }
 
 // // find all close buttons

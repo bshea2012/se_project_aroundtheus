@@ -53,23 +53,39 @@
           type="button"
         ></button>
         <p class="modal__heading">Edit profile</p>
-        <form class="modal__form" name="profile-form">
-          <input
-            type="text"
-            name="profile__title"
-            class="modal__input"
-            id="profile-title-input"
-            placeholder="Name"
-            required
-          />
-          <input
-            type="text"
-            name="profile__description"
-            class="modal__input"
-            id="profile-description-input"
-            placeholder="Description"
-            required
-          />
+        <form class="modal__form" name="profile-form" novalidate>
+          <div class="modal__form_field">
+            <input
+              type="text"
+              name="profile__title"
+              class="modal__input"
+              id="profile-title-input"
+              placeholder="Name"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span
+              class="modal__input_error"
+              id="profile-title-input-error"
+            ></span>
+          </div>
+          <div class="modal__form_field">
+            <input
+              type="text"
+              name="profile__description"
+              class="modal__input"
+              id="profile-description-input"
+              placeholder="Description"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span
+              class="modal__input_error"
+              id="profile-description-input-error"
+            ></span>
+          </div>
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
@@ -85,23 +101,40 @@
         ></button>
         <p class="modal__heading">New place</p>
         <form class="modal__form" name="place-form">
-          <input
-            type="text"
-            name="place__title"
-            class="modal__input"
-            id="place-title-input"
-            placeholder="Title"
-            required
-          />
-          <input
-            type="text"
-            name="place__link"
-            class="modal__input"
-            id="place-link-input"
-            placeholder="Image link"
-            required
-          />
-          <button class="modal__button" type="submit">Create</button>
+          <div class="modal__form_field">
+            <input
+              type="text"
+              name="place__title"
+              class="modal__input"
+              id="place-title-input"
+              placeholder="Title"
+              minlength="1"
+              maxlength="30"
+              required
+            />
+            <span
+              class="modal__input_error"
+              id="place-title-input-error"
+            ></span>
+          </div>
+          <div class="modal__form_field">
+            <input
+              type="url"
+              name="place__link"
+              class="modal__input"
+              id="place-link-input"
+              placeholder="Image link"
+              required
+            />
+            <span class="modal__input_error" id="place-link-input-error"></span>
+          </div>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Create
+          </button>
         </form>
       </div>
     </div>
@@ -118,7 +151,7 @@
         <p class="modal__heading-preview"></p>
       </div>
     </div>
-
+    <!-- Card Template -->
     <template id="card-template">
       <li class="card">
         <button class="card__delete-button" type="button"></button>
@@ -129,6 +162,8 @@
         </div>
       </li>
     </template>
+    <!-- Scripts -->
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validation.js" defer></script>
   </body>
 </html>
