@@ -115,19 +115,6 @@ function getCardElement(cardData) {
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  // Event Listeners
-
-  // Universal Close Button
-  // find all close buttons
-  const closeButtons = document.querySelectorAll(".modal__close");
-
-  closeButtons.forEach((button) => {
-    // find the closest popup
-    const popup = button.closest(".modal");
-    // set the listener
-    button.addEventListener("click", () => closePopUp(popup));
-  });
-
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
   });
@@ -148,6 +135,18 @@ function getCardElement(cardData) {
   cardImageEl.alt = cardData.name;
   return cardElement;
 }
+
+// Universal Close Button
+// find all close buttons
+const closeButtons = document.querySelectorAll(".modal__close");
+
+closeButtons.forEach((button) => {
+  // find the closest popup
+  const popup = button.closest(".modal");
+  console.log(popup);
+  // set the listener
+  button.addEventListener("click", () => closePopUp(popup));
+});
 
 profileEditBtn.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
