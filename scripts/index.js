@@ -124,7 +124,6 @@ function getCardElement(cardData) {
   closeButtons.forEach((button) => {
     // find the closest popup
     const popup = button.closest(".modal");
-    console.log(popup);
     // set the listener
     button.addEventListener("click", () => closePopUp(popup));
   });
