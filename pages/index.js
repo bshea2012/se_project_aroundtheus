@@ -74,13 +74,26 @@ const validationSettings = {
   errorClass: "modal__error_visible",
 };
 
-const editFormValidator = new FormValidator(
-  validationSettings,
-  profileEditModal
-);
-const addFormValidator = new FormValidator(validationSettings, addCardModal);
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
+const formValidators = {};
+
+const enableValidation = (validationSettings) => {
+  const formList = Array.from(document.querySelectorAll(".modal__form"));
+
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(validationSettings, formElement);
+    // Here you get the name of the form (if you don’t have it then you need to add it into each form in `index.html` first)
+    const formName = formElement.getAttribute("name");
+
+    // Here you store the validator using the `name` of the form
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationSettings);
+
+formValidators["profile-form"].resetValidation();
+
 //
 
 // Functions
@@ -109,9 +122,14 @@ function closeModalOnRemoteClick(e) {
   }
 }
 
+function createCard(cardData) {
+  const cardElement = new Card(cardData, "#card-template", handleImageClick);
+  return cardElement.getCard();
+}
+
 function renderCard(cardData, list) {
-  const card = new Card(cardData, "#card-template", handleImageClick);
-  list.prepend(card.getCard());
+  const card = createCard(cardData);
+  list.prepend(card);
 }
 
 function handleProfileEditSubmit(e) {
@@ -131,7 +149,6 @@ function handleAddCardSubmit(e) {
 }
 
 function handleImageClick(link, name) {
-  const cardImageEl = cardImagePreviewEl.querySelector(".card__image");
   const cardTitleEl = cardImagePreviewTitleEl.querySelector(
     ".card__description-content"
   );
@@ -140,24 +157,6 @@ function handleImageClick(link, name) {
   cardImagePreviewEl.alt = name;
   cardImagePreviewTitleEl.textContent = name;
   openPopUp(previewImageModal);
-}
-
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__description-content");
-
-  cardImageEl.addEventListener("click", () => {
-    openPopUp(previewImageModal);
-    cardImagePreviewEl.src = cardData.link;
-    cardImagePreviewEl.alt = cardData.name;
-    cardImagePreviewTitleEl.textContent = cardData.name;
-  });
-
-  cardTitleEl.textContent = cardData.name;
-  cardImageEl.src = cardData.link;
-  cardImageEl.alt = cardData.name;
-  return cardElement;
 }
 //
 
