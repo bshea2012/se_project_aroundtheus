@@ -92,8 +92,6 @@ const enableValidation = (validationSettings) => {
 
 enableValidation(validationSettings);
 
-formValidators["profile-form"].resetValidation();
-
 //
 
 // Functions
@@ -101,6 +99,7 @@ function openPopUp(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeModalByEscape);
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
+  formValidators["profile-form"].resetValidation();
 }
 
 function closePopUp(modal) {
@@ -146,7 +145,6 @@ function handleAddCardSubmit(e) {
   renderCard({ name, link }, cardListEl);
   addCardForm.reset();
   closePopUp(addCardModal);
-  formValidators["place-form"].disableButton();
 }
 
 function handleImageClick(link, name) {
