@@ -146,13 +146,10 @@ function handleAddCardSubmit(e) {
   renderCard({ name, link }, cardListEl);
   addCardForm.reset();
   closePopUp(addCardModal);
+  formValidators["place-form"].disableButton();
 }
 
 function handleImageClick(link, name) {
-  const cardTitleEl = cardImagePreviewTitleEl.querySelector(
-    ".card__description-content"
-  );
-
   cardImagePreviewEl.src = link;
   cardImagePreviewEl.alt = name;
   cardImagePreviewTitleEl.textContent = name;
