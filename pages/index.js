@@ -99,7 +99,6 @@ function openPopUp(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeModalByEscape);
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
-  formValidators["profile-form"].resetValidation();
 }
 
 function closePopUp(modal) {
@@ -144,6 +143,7 @@ function handleAddCardSubmit(e) {
   const link = cardLinkInput.value;
   renderCard({ name, link }, cardListEl);
   addCardForm.reset();
+  formValidators["place-form"].resetValidation();
   closePopUp(addCardModal);
 }
 
@@ -170,6 +170,7 @@ closeButtons.forEach((button) => {
 profileEditBtn.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
+  formValidators["profile-form"].resetValidation();
   openPopUp(profileEditModal);
 });
 
