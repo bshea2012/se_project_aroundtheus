@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Around the U.S.</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+
     <link rel="shortcut icon" href="./favicon.ico" />
   </head>
 
@@ -13,7 +13,7 @@
       <header class="header page__section">
         <img
           class="header__logo"
-          src="./images/logo.svg"
+          src="<%= require('./images/logo.svg')%>"
           alt="Around the U.S. Logo"
         />
       </header>
@@ -21,7 +21,7 @@
         <section class="profile page__section">
           <img
             class="profile__avatar"
-            src="./images/jacques-cousteau.png"
+            src="<%= require('./images/jacques-cousteau.png')%>"
             alt="Avatar"
           />
           <div class="profile__info">
@@ -57,7 +57,7 @@
           <div class="modal__form_field">
             <input
               type="text"
-              name="profile__title"
+              name="title"
               class="modal__input"
               id="profile-title-input"
               placeholder="Name"
@@ -73,7 +73,7 @@
           <div class="modal__form_field">
             <input
               type="text"
-              name="profile__description"
+              name="description"
               class="modal__input"
               id="profile-description-input"
               placeholder="Description"
@@ -104,7 +104,7 @@
           <div class="modal__form_field">
             <input
               type="text"
-              name="place__title"
+              name="title"
               class="modal__input"
               id="place-title-input"
               placeholder="Title"
@@ -120,7 +120,7 @@
           <div class="modal__form_field">
             <input
               type="url"
-              name="place__link"
+              name="link"
               class="modal__input"
               id="place-link-input"
               placeholder="Image link"
@@ -162,7 +162,5 @@
         </div>
       </li>
     </template>
-    <!-- Scripts -->
-    <script src="./pages/index.js" type="module" defer></script>
   </body>
 </html>
