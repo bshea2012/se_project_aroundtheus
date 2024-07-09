@@ -29,10 +29,6 @@ export const addNewCardButton = document.querySelector(".profile__add-button");
 export const editProfileButton = document.querySelector(
   ".profile__edit-button"
 );
-export const profileTitleInput = document.querySelector("#profile-title-input");
-export const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
 
 export const profileSelectors = {
   profileName: ".profile__title",

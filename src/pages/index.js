@@ -8,9 +8,7 @@ import {
   selectors,
   profileSelectors,
   validationSettings,
-  profileTitleInput,
-  profileDescriptionInput,
-} from "../components/Constants";
+} from "../utils/Constants";
 import Card from "../components/Card";
 import FormValidator from "../components/FormValidator";
 import Section from "../components/Section";
@@ -19,13 +17,13 @@ import PopupWithForm from "../components/PopupWithForm";
 import UserInfo from "../components/UserInfo";
 
 // Create instances of Classes
-const ImagePreviewPopup = new PopupWithPicture(selectors.previewModal);
+const imagePreviewPopup = new PopupWithPicture(selectors.previewModal);
 
-const CardSection = new Section(
+const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      CardSection.addItem(createCard(item));
+      cardSection.addItem(createCard(item));
     },
   },
   selectors.cardSection
@@ -44,32 +42,34 @@ const editUserInfoPopup = new PopupWithForm(
 );
 
 //Initialize all instances
-CardSection.renderItems();
-ImagePreviewPopup.setEventListeners();
+cardSection.renderItems();
+imagePreviewPopup.setEventListeners();
 newCardPopup.setEventListeners();
 editUserInfoPopup.setEventListeners();
 
 //Specific Event Listeners
 addNewCardButton.addEventListener("click", () => {
-  formValidators["place-form"].resetValidation();
+  formValidators["place-form"].toggleButtonState();
   newCardPopup.open();
 });
 
 editProfileButton.addEventListener("click", () => {
-  const { name, job } = editUserInfo.getUserInfo();
-  profileTitleInput.value = name;
-  profileDescriptionInput.value = job;
+  const userInfo = editUserInfo.getUserInfo();
+  editUserInfoPopup.setInputValues({
+    title: userInfo.name,
+    description: userInfo.job,
+  });
   formValidators["profile-form"].resetValidation();
   editUserInfoPopup.open();
 });
 
 // Functions
 function handleImageClick(link, name) {
-  ImagePreviewPopup.open(link, name);
+  imagePreviewPopup.open(link, name);
 }
 
 function handleAddCardSubmit(cardData) {
-  CardSection.addItem(
+  cardSection.addItem(
     createCard({ name: cardData.title, link: cardData.link })
   );
   newCardPopup.close();
@@ -111,15 +111,3 @@ const enableValidation = (validationSettings) => {
 enableValidation(validationSettings);
 
 //
-
-// Universal Close Button
-// find all close buttons
-const closeButtons = document.querySelectorAll(".modal__close");
-
-closeButtons.forEach((button) => {
-  // find the closest popup
-  const popup = button.closest(".modal");
-  // console.log(popup);
-  // set the listener
-  button.addEventListener("click", () => popup.close);
-});
