@@ -38,6 +38,32 @@
   margin: auto;
 }
 
+.modal__container-delete {
+  position: relative;
+  background-color: #fff;
+  margin: auto;
+  padding: 36px;
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: 900;
+  border-radius: 10px;
+  width: 430px;
+  box-sizing: border-box;
+}
+
+.modal__container-avatar-edit {
+  position: relative;
+  background-color: #fff;
+  margin: auto;
+  padding: 36px;
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: 900;
+  border-radius: 10px;
+  width: 430px;
+  box-sizing: border-box;
+}
+
 .modal__close {
   border: none;
   width: 40px;
@@ -54,6 +80,16 @@
 }
 
 .modal__heading {
+  margin: 0 0 54px;
+  color: black;
+}
+
+.modal__heading-delete {
+  margin: 0 0 38px;
+  color: black;
+}
+
+.modal__heading-avatar-edit {
   margin: 0 0 54px;
   color: black;
 }
@@ -99,7 +135,6 @@
 }
 
 .modal__button {
-  margin-top: 18px;
   height: 50px;
   background-color: #000;
   color: #fff;
@@ -110,7 +145,23 @@
   cursor: pointer;
 }
 
+.modal__button-delete {
+  height: 50px;
+  background-color: #000;
+  color: #fff;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 100%;
+}
+
 .modal__button:hover {
+  opacity: 80%;
+}
+
+.modal__button-delete:hover {
   opacity: 80%;
 }
 
@@ -151,6 +202,12 @@
   }
 
   .modal__button {
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .modal__button-delete {
     margin-top: 15px;
     font-size: 14px;
     line-height: 17px;

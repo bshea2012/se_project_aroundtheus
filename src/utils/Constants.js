@@ -29,10 +29,16 @@ export const addNewCardButton = document.querySelector(".profile__add-button");
 export const editProfileButton = document.querySelector(
   ".profile__edit-button"
 );
+export const cardDeleteButton = document.querySelector(".card__delete-button");
+
+export const editAvatarButton = document.querySelector(
+  ".profile__avatar-edit-button"
+);
 
 export const profileSelectors = {
   profileName: ".profile__title",
   profileDescription: ".profile__description",
+  profileAvatar: ".profile__avatar",
 };
 
 export const selectors = {
@@ -41,6 +47,8 @@ export const selectors = {
   previewModal: "#preview-image-modal",
   newCardModal: "#add-card-modal",
   editProfileModal: "#profile-edit-modal",
+  confirmDeleteModal: "#confirm-delete-modal",
+  editAvatarModal: "#avatar-edit-modal",
 };
 
 export const validationSettings = {
