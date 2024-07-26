@@ -41,9 +41,11 @@ export default class PopupWithForm extends Popup {
 
   setButtonText(isSaving) {
     if (isSaving) {
-      this._submitButtonText = "Saving";
+      this._submitButtonText = "Saving...";
+      console.log(this._submitButtonText);
     } else {
-      this._submitButtonText = this._submitButton;
+      this._submitButtonText = this._submitButton.textContent;
+      console.log(this._submitButtonText);
     }
   }
 }

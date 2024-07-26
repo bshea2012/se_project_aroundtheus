@@ -114,10 +114,8 @@ function handleAddCardSubmit(cardData) {
   newCardPopup.setButtonText(true);
   api
     .addNewCard(cardData.title, cardData.link)
-    .then(() => {
-      cardSection.addItem(
-        createCard({ name: cardData.title, link: cardData.link })
-      );
+    .then((data) => {
+      cardSection.addItem(createCard(data));
     })
     .catch((err) => {
       console.error(`There is an Error: `, err); // log the error to the console
@@ -147,7 +145,7 @@ function handleProfileEditSubmit(cardData) {
 
 function handleCardDeleteClick(card) {
   deleteCardPopup.open();
-  deleteCardPopup.setButtonText(true);
+  deleteCardPopup.setDeleteText(true);
   deleteCardPopup.setConfirmDelete(() => {
     api
       .deleteCard(card._id)
@@ -159,7 +157,7 @@ function handleCardDeleteClick(card) {
         console.error(`There is an Error: `, err); // log the error to the console
       })
       .finally(() => {
-        deleteCardPopup.setButtonText(false);
+        deleteCardPopup.setDeleteText(false);
       });
   });
 }
