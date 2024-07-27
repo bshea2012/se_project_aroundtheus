@@ -49,6 +49,9 @@ export const selectors = {
   editProfileModal: "#profile-edit-modal",
   confirmDeleteModal: "#confirm-delete-modal",
   editAvatarModal: "#avatar-edit-modal",
+  editProfileForm: "#profile-form",
+  newCardForm: "#place-form",
+  editAvatarForm: "#avatar-form",
 };
 
 export const validationSettings = {

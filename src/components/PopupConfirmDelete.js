@@ -16,11 +16,9 @@ export default class PopupConfirmDelete extends Popup {
 
   setDeleteText(isDeleting) {
     if (isDeleting) {
-      this._submitButtonText = "Deleting...";
-      console.log(this._submitButtonText);
+      this._submitButton.textContent = "Deleting...";
     } else {
-      this._submitButtonText = this._submitButton.textContent;
-      console.log(this._submitButtonText);
+      this._submitButton.textContent = this._submitButtonText;
     }
   }
 

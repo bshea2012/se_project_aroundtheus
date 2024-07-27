@@ -110,73 +110,69 @@ function handleImageClick(link, name) {
   imagePreviewPopup.open(link, name);
 }
 
-function handleAddCardSubmit(cardData) {
-  newCardPopup.setButtonText(true);
-  api
-    .addNewCard(cardData.title, cardData.link)
-    .then((data) => {
-      cardSection.addItem(createCard(data));
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  popupInstance.setButtonText(true, loadingText);
+  request()
+    .then(() => {
+      // We need to close only in `then`
+      popupInstance.close();
     })
-    .catch((err) => {
-      console.error(`There is an Error: `, err); // log the error to the console
-    })
+    // we need to catch possible errors
+    // console.error is used to handle errors if you don’t have any other ways for that
+    .catch(console.error)
+    // in `finally` we need to return the initial button text back in any case
     .finally(() => {
-      newCardPopup.setButtonText(false);
+      popupInstance.setButtonText(false);
     });
+}
 
-  newCardPopup.close();
+function handleAddCardSubmit(cardData) {
+  function makeRequest() {
+    // `return` lets us use a promise chain `then, catch, finally` inside `handleSubmit`
+    return api.addNewCard(cardData.title, cardData.link).then((data) => {
+      cardSection.addItem(createCard(data));
+    });
+  }
+
+  handleSubmit(makeRequest, newCardPopup);
 }
 
 function handleProfileEditSubmit(cardData) {
-  editUserInfoPopup.setButtonText(true);
-  api
-    .editUserInfo(cardData.title, cardData.description)
-    .then(() => {
+  function makeRequest() {
+    return api.editUserInfo(cardData.title, cardData.description).then(() => {
       userInfo.setUserInfo(cardData.title, cardData.description);
-    })
-    .catch((err) => {
-      console.error(`There is an Error: `, err); // log the error to the console
-    })
-    .finally(() => {
-      editUserInfoPopup.setButtonText(false);
     });
-  editUserInfoPopup.close();
+  }
+
+  handleSubmit(makeRequest, editUserInfoPopup);
+}
+
+function handleAvatarEditSubmit(data) {
+  function makeRequest() {
+    return api.updateAvatar(data.link).then(() => {
+      userInfo.setUserAvatar(data.link);
+    });
+  }
+
+  handleSubmit(makeRequest, editAvatarPopup);
 }
 
 function handleCardDeleteClick(card) {
   deleteCardPopup.open();
-  deleteCardPopup.setDeleteText(true);
+
   deleteCardPopup.setConfirmDelete(() => {
     api
       .deleteCard(card._id)
       .then(() => {
+        deleteCardPopup.setDeleteText(true);
         card.removeCard();
         deleteCardPopup.close();
       })
-      .catch((err) => {
-        console.error(`There is an Error: `, err); // log the error to the console
-      })
+      .catch(console.error)
       .finally(() => {
         deleteCardPopup.setDeleteText(false);
       });
   });
-}
-
-function handleAvatarEditSubmit(data) {
-  editAvatarPopup.setButtonText(true);
-  api
-    .updateAvatar(data.link)
-    .then(() => {
-      userInfo.setUserAvatar(data.link);
-    })
-    .catch((err) => {
-      console.error(`Avatar not updated: `, err); // log the error to the console
-    })
-    .finally(() => {
-      editAvatarPopup.setButtonText(false);
-    });
-
-  editAvatarPopup.close();
 }
 
 function createCard(cardData) {
@@ -191,16 +187,13 @@ function createCard(cardData) {
 }
 
 function handleCardLike(data) {
-  // console.log(data);
   api
-    .updateLike(data._id, data._isLiked)
+    .updateLike(data._id, data.isLiked)
     .then((res) => {
       console.log(res.isLiked);
       data.isCardLiked(res.isLiked);
     })
-    .catch((err) => {
-      console.error(`Card not liked: `, err); // log the error to the console
-    });
+    .catch(console.error);
 }
 
 //
