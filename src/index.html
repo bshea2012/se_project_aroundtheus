@@ -19,13 +19,13 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            class="profile__avatar"
-            src="<%= require('./images/jacques-cousteau.png')%>"
-            alt="Avatar"
-          />
+          <div class="profile__avatar-container">
+            <img class="profile__avatar" src="" alt="Avatar" />
+            <button class="profile__avatar-edit-button" type="button"></button>
+          </div>
+
           <div class="profile__info">
-            <h1 class="profile__title">Jacques-Yves Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               class="profile__edit-button"
               type="button"
@@ -100,7 +100,7 @@
           type="button"
         ></button>
         <p class="modal__heading">New place</p>
-        <form class="modal__form" name="place-form">
+        <form class="modal__form" name="place-form" id="add-card-form">
           <div class="modal__form_field">
             <input
               type="text"
@@ -151,6 +151,51 @@
         <p class="modal__heading-preview"></p>
       </div>
     </div>
+
+    <!-- Delete Card Confirm Modal -->
+    <div class="modal" id="confirm-delete-modal">
+      <div class="modal__container-delete">
+        <button
+          class="modal__close"
+          id="delete-card-modal-close"
+          type="button"
+        ></button>
+        <p class="modal__heading-delete">Are you sure?</p>
+        <form action="" class="modal__form">
+          <button class="modal__button-delete" type="submit">Yes</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Avatar Modal -->
+    <div class="modal" id="avatar-edit-modal">
+      <div class="modal__container-avatar-edit">
+        <button
+          class="modal__close"
+          id="delete-card-modal-close"
+          type="button"
+        ></button>
+        <p class="modal__heading-avatar-edit">Change profile picture</p>
+        <form class="modal__form" name="avatar-form" novalidate>
+          <div class="modal__form_field">
+            <input
+              type="url"
+              name="link"
+              class="modal__input"
+              id="avatar-link-input"
+              placeholder="Avatar link"
+              required
+            />
+            <span
+              class="modal__input_error"
+              id="avatar-link-input-error"
+            ></span>
+          </div>
+          <button class="modal__button" type="submit" disabled>Save</button>
+        </form>
+      </div>
+    </div>
+
     <!-- Card Template -->
     <template id="card-template">
       <li class="card">
