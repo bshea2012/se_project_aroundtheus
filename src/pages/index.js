@@ -160,18 +160,15 @@ function handleAvatarEditSubmit(data) {
 
 function handleCardDeleteClick(card) {
   deleteCardPopup.open();
-  deleteCardPopup.setDeleteText(false);
+
+  function makeRequest() {
+    return api.deleteCard(card._id).then(() => {
+      card.removeCard();
+    });
+  }
+
   deleteCardPopup.setConfirmDelete(() => {
-    api
-      .deleteCard(card._id)
-      .then(() => {
-        card.removeCard();
-        deleteCardPopup.close();
-      })
-      .catch(console.error)
-      .finally(() => {
-        deleteCardPopup.setDeleteText(true);
-      });
+    handleSubmit(makeRequest, deleteCardPopup, "Deleting...");
   });
 }
 

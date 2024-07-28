@@ -14,7 +14,7 @@ export default class PopupConfirmDelete extends Popup {
     this._handleFormSubmit = func;
   }
 
-  setDeleteText(isDeleting) {
+  setButtonText(isDeleting) {
     if (isDeleting) {
       this._submitButton.textContent = "Deleting...";
     } else {
