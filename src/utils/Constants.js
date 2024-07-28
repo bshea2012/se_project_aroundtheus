@@ -50,7 +50,7 @@ export const selectors = {
   confirmDeleteModal: "#confirm-delete-modal",
   editAvatarModal: "#avatar-edit-modal",
   editProfileForm: "#profile-form",
-  newCardForm: "#place-form",
+  addCardForm: "#add-card-form",
   editAvatarForm: "#avatar-form",
 };
 

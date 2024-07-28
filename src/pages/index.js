@@ -131,6 +131,7 @@ function handleAddCardSubmit(cardData) {
     // `return` lets us use a promise chain `then, catch, finally` inside `handleSubmit`
     return api.addNewCard(cardData.title, cardData.link).then((data) => {
       cardSection.addItem(createCard(data));
+      newCardPopup.resetForm();
     });
   }
 
@@ -159,18 +160,17 @@ function handleAvatarEditSubmit(data) {
 
 function handleCardDeleteClick(card) {
   deleteCardPopup.open();
-
+  deleteCardPopup.setDeleteText(false);
   deleteCardPopup.setConfirmDelete(() => {
     api
       .deleteCard(card._id)
       .then(() => {
-        deleteCardPopup.setDeleteText(true);
         card.removeCard();
         deleteCardPopup.close();
       })
       .catch(console.error)
       .finally(() => {
-        deleteCardPopup.setDeleteText(false);
+        deleteCardPopup.setDeleteText(true);
       });
   });
 }
@@ -188,9 +188,8 @@ function createCard(cardData) {
 
 function handleCardLike(data) {
   api
-    .updateLike(data._id, data.isLiked)
+    .updateLike(data._id, data.isLiked())
     .then((res) => {
-      console.log(res.isLiked);
       data.isCardLiked(res.isLiked);
     })
     .catch(console.error);
