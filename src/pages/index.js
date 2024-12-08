@@ -2,9 +2,9 @@ import "./index.css";
 
 // Import all classes
 import {
-  initialCards,
   addNewCardButton,
   editProfileButton,
+  editAvatarButton,
   selectors,
   profileSelectors,
   validationSettings,
@@ -15,37 +15,68 @@ import Section from "../components/Section";
 import PopupWithPicture from "../components/PopupWithPicture";
 import PopupWithForm from "../components/PopupWithForm";
 import UserInfo from "../components/UserInfo";
+import Api from "../components/Api";
+import PopupConfirmDelete from "../components/PopupConfirmDelete";
 
 // Create instances of Classes
 const imagePreviewPopup = new PopupWithPicture(selectors.previewModal);
-
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      cardSection.addItem(createCard(item));
-    },
-  },
-  selectors.cardSection
-);
 
 const newCardPopup = new PopupWithForm(
   selectors.newCardModal,
   handleAddCardSubmit
 );
 
-const editUserInfo = new UserInfo(profileSelectors);
-
 const editUserInfoPopup = new PopupWithForm(
   selectors.editProfileModal,
   handleProfileEditSubmit
 );
 
+const editAvatarPopup = new PopupWithForm(
+  selectors.editAvatarModal,
+  handleAvatarEditSubmit
+);
+
+const deleteCardPopup = new PopupConfirmDelete(selectors.confirmDeleteModal);
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "2f5abbfd-693d-4973-87a8-2e8fc711af51",
+    "Content-Type": "application/json",
+  },
+});
+
 //Initialize all instances
-cardSection.renderItems();
 imagePreviewPopup.setEventListeners();
 newCardPopup.setEventListeners();
 editUserInfoPopup.setEventListeners();
+editAvatarPopup.setEventListeners();
+deleteCardPopup.setEventListeners();
+
+let cardSection;
+let userInfo;
+
+api
+  .initialPageLoad()
+  .then(([userData, cards]) => {
+    cardSection = new Section(
+      {
+        items: cards,
+        renderer: (item) => {
+          cardSection.addItem(createCard(item));
+        },
+      },
+      selectors.cardSection
+    );
+    cardSection.renderItems();
+
+    userInfo = new UserInfo(profileSelectors);
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setUserAvatar(userData.avatar);
+  })
+  .catch((err) => {
+    console.error(`There is an Error: `, err); // log the error to the console
+  });
 
 //Specific Event Listeners
 addNewCardButton.addEventListener("click", () => {
@@ -53,14 +84,25 @@ addNewCardButton.addEventListener("click", () => {
   newCardPopup.open();
 });
 
+let userData;
+
 editProfileButton.addEventListener("click", () => {
-  const userInfo = editUserInfo.getUserInfo();
+  userData = userInfo.getUserInfo();
   editUserInfoPopup.setInputValues({
-    title: userInfo.name,
-    description: userInfo.job,
+    title: userData.name,
+    description: userData.job,
   });
   formValidators["profile-form"].resetValidation();
   editUserInfoPopup.open();
+});
+
+editAvatarButton.addEventListener("click", () => {
+  userData = userInfo.getUserInfo();
+  editAvatarPopup.setInputValues({
+    link: userData.src,
+  });
+  formValidators["avatar-form"].toggleButtonState();
+  editAvatarPopup.open();
 });
 
 // Functions
@@ -68,25 +110,86 @@ function handleImageClick(link, name) {
   imagePreviewPopup.open(link, name);
 }
 
+function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  popupInstance.setButtonText(true, loadingText);
+  request()
+    .then(() => {
+      // We need to close only in `then`
+      popupInstance.close();
+    })
+    // we need to catch possible errors
+    // console.error is used to handle errors if you don’t have any other ways for that
+    .catch(console.error)
+    // in `finally` we need to return the initial button text back in any case
+    .finally(() => {
+      popupInstance.setButtonText(false);
+    });
+}
+
 function handleAddCardSubmit(cardData) {
-  cardSection.addItem(
-    createCard({ name: cardData.title, link: cardData.link })
-  );
-  newCardPopup.close();
+  function makeRequest() {
+    // `return` lets us use a promise chain `then, catch, finally` inside `handleSubmit`
+    return api.addNewCard(cardData.title, cardData.link).then((data) => {
+      cardSection.addItem(createCard(data));
+      newCardPopup.resetForm();
+    });
+  }
+
+  handleSubmit(makeRequest, newCardPopup);
 }
 
 function handleProfileEditSubmit(cardData) {
-  editUserInfo.setUserInfo(cardData.title, cardData.description);
-  editUserInfoPopup.close();
+  function makeRequest() {
+    return api.editUserInfo(cardData.title, cardData.description).then(() => {
+      userInfo.setUserInfo(cardData.title, cardData.description);
+    });
+  }
+
+  handleSubmit(makeRequest, editUserInfoPopup);
+}
+
+function handleAvatarEditSubmit(data) {
+  function makeRequest() {
+    return api.updateAvatar(data.link).then(() => {
+      userInfo.setUserAvatar(data.link);
+    });
+  }
+
+  handleSubmit(makeRequest, editAvatarPopup);
+}
+
+function handleCardDeleteClick(card) {
+  deleteCardPopup.open();
+
+  function makeRequest() {
+    return api.deleteCard(card._id).then(() => {
+      card.removeCard();
+    });
+  }
+
+  deleteCardPopup.setConfirmDelete(() => {
+    handleSubmit(makeRequest, deleteCardPopup, "Deleting...");
+  });
 }
 
 function createCard(cardData) {
   const cardElement = new Card(
     cardData,
     selectors.cardTemplate,
-    handleImageClick
+    handleImageClick,
+    handleCardDeleteClick,
+    handleCardLike
   );
   return cardElement.getCard();
+}
+
+function handleCardLike(data) {
+  api
+    .updateLike(data._id, data.isLiked())
+    .then((res) => {
+      data.isCardLiked(res.isLiked);
+    })
+    .catch(console.error);
 }
 
 //
